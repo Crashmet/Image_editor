@@ -121,18 +121,121 @@
                 </div>
 
                 <!-- input text editor -->
-                <div class="mb-7 px-4 flex align-middle" v-if="isTextEvent">
-                  <div>
+                <div class="mb-8 px-4 flex align-middle" v-if="isTextEvent">
+                  <div class="mr-4">
+                    <!-- input  -->
                     <input
                       type="text"
                       name="username"
                       id="username"
                       autocomplete="..."
-                      class="mr-4 w-32 rounded block ring-1 ring-inset ring-gray-300 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 sm:text-sm hover:bg-gray-50"
+                      class="w-40 h-8 mb-2 rounded block ring-1 ring-inset ring-gray-300 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 sm:text-sm hover:bg-gray-50"
                       placeholder=" Print"
                       v-model="inputTextImg"
                     />
+
+                    <div class="flex">
+                      <!-- Font size  -->
+
+                      <div class="relative mr-5">
+                        <button
+                          @click="openSettingsTextFS"
+                          type="button"
+                          class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                          id="menu-button"
+                        >
+                          {{ textFontSize }}px
+                          <svg
+                            class="-mr-1 h-5 w-5 text-gray-400"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            aria-hidden="true"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                              clip-rule="evenodd"
+                            />
+                          </svg>
+                        </button>
+                        <div
+                          v-show="isTextFontSize"
+                          class="absolute flex top-9 left-0 z-10 max-h-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-auto hover:overflow-scroll"
+                          role="menu"
+                          aria-orientation="vertical"
+                          aria-labelledby="menu-button"
+                        >
+                          <div class="py-1 text-center" role="none">
+                            <a
+                              v-for="fs in fontSizeList"
+                              :key="fs"
+                              @click="addFontSizeText(fs)"
+                              href="#"
+                              class="text-gray-700 block px-4 py-2 text-sm active: bg-gray-100 active:text-gray-900"
+                              role="menuitem"
+                              tabindex="-1"
+                              id="menu-item-0"
+                              >{{ fs }}px</a
+                            >
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Color  -->
+
+                      <div class="relative">
+                        <button
+                          @click="openSettingsTextColor"
+                          type="button"
+                          class="flex w-full self-center gap-x-1.5 rounded-md bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                          id="menu-button"
+                        >
+                          <span
+                            class="w-4 h-4 flex self-center"
+                            :style="`background-color:${textColor}`"
+                          ></span>
+                          <svg
+                            class="-mr-1 h-5 w-5 text-gray-400"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            aria-hidden="true"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                              clip-rule="evenodd"
+                            />
+                          </svg>
+                        </button>
+                        <div
+                          v-show="isTextColor"
+                          class="absolute flex top-9 left-1 z-10 max-h-36 max-w-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-auto hover:overflow-scroll"
+                          role="menu"
+                          aria-orientation="vertical"
+                          aria-labelledby="menu-button"
+                        >
+                          <div class="py-1 text-center" role="none">
+                            <a
+                              v-for="color in colorList"
+                              :key="color"
+                              @click="addTextColor(color)"
+                              href="#"
+                              class="text-gray-700 block px-4 py-2 text-sm active: bg-gray-100 active:text-gray-900"
+                              role="menuitem"
+                              tabindex="-1"
+                              id="menu-item-0"
+                              ><span
+                                class="w-4 h-4 flex self-center"
+                                :style="`background-color:${color}`"
+                              ></span
+                            ></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+
+                  <!-- control buttons -->
 
                   <div class="flex items-center">
                     <button
@@ -155,10 +258,10 @@
                 <!-- input Poligon editor -->
 
                 <div
-                  class="relative px-4 mb-6 text-left flex items-center justify-end"
+                  class="px-4 mb-6 text-left flex items-center justify-end"
                   v-show="isPolyhedronEvent"
                 >
-                  <div class="mr-4">
+                  <div class="relative mr-4">
                     <button
                       @click="isSelectPolygons = !isSelectPolygons"
                       type="button"
@@ -179,6 +282,27 @@
                         />
                       </svg>
                     </button>
+                    <div
+                      v-show="isSelectPolygons"
+                      class="absolute flex top-9 left-1 z-10 max-h-36 max-w-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-auto hover:overflow-scroll"
+                      role="menu"
+                      aria-orientation="vertical"
+                      aria-labelledby="menu-button"
+                    >
+                      <div class="py-1 text-center" role="none">
+                        <a
+                          v-for="value in polygonPointsSelectList"
+                          :key="value"
+                          @click="addPolygonPointsValue(value)"
+                          href="#"
+                          class="text-gray-700 block px-4 py-2 text-sm active: bg-gray-100 active:text-gray-900"
+                          role="menuitem"
+                          tabindex="-1"
+                          id="menu-item-0"
+                          >{{ value }}</a
+                        >
+                      </div>
+                    </div>
                   </div>
                   <div class="flex items-center">
                     <button
@@ -195,28 +319,6 @@
                     >
                       Cancel
                     </button>
-                  </div>
-                  <div
-                    v-show="isSelectPolygons"
-                    class="absolute flex items-center top-9 left-4 z-10 max-h-36 max-w-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-scroll"
-                    role="menu"
-                    aria-orientation="vertical"
-                    aria-labelledby="menu-button"
-                  >
-                    <div class="py-1 text-center" role="none">
-                      <!--  -->
-                      <a
-                        v-for="value in polygonPointsSelectList"
-                        :key="value"
-                        @click="addPolygonPointsValue(value)"
-                        href="#"
-                        class="text-gray-700 block px-4 py-2 text-sm active: bg-gray-100 active:text-gray-900"
-                        role="menuitem"
-                        tabindex="-1"
-                        id="menu-item-0"
-                        >{{ value }}</a
-                      >
-                    </div>
                   </div>
                 </div>
 
@@ -384,8 +486,20 @@ export default defineComponent({
 
       imageCanvas: {} as HTMLImageElement,
 
+      fontSizeList: [6, 8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 40, 48, 56],
+      colorList: ['white', 'black', 'blue', 'red', 'orange', 'green'],
+      em: 1,
+      maxWidth: 0,
+      maxHeight: 0,
+      lineWidth: 4,
+      fontSize: 16,
+
       isTextEvent: false,
       isTextAdd: false,
+      isTextFontSize: false,
+      isTextColor: false,
+      textFontSize: 16,
+      textColor: 'black',
       inputTextImg: '',
       textX: 100,
       textY: 100,
@@ -394,7 +508,7 @@ export default defineComponent({
       isSelectPolygons: false,
       isPreviewPolyhedronFlag: true,
       polygonPointsValue: 3,
-      polygonPointsSelectList: [1, 2, 3, 4, 5, 6, 7, 8],
+      polygonPointsSelectList: [3, 4, 5, 6, 7, 8],
       addPointsPreview: 0,
       polygonPoints: [] as polygonPoints[],
 
@@ -414,12 +528,6 @@ export default defineComponent({
       isMousedown: false,
       isMultiTouch: false,
       multiTouchOffClass: 'touch-action',
-
-      em: 1,
-      maxWidth: 0,
-      maxHeight: 0,
-      lineWidth: 4,
-      fontSize: 16,
     };
   },
 
@@ -585,7 +693,7 @@ export default defineComponent({
     // *** SETTINGS CANVAS FIGURES ***
 
     settingsStyleTextPreview() {
-      const fsEm = this.em * this.fontSize;
+      const fsEm = this.em * this.textFontSize;
 
       this.contextCanvasSample.font = `bold ${fsEm}px Verdana, sans-serif`;
       this.contextCanvasSample.textAlign = 'center';
@@ -594,11 +702,12 @@ export default defineComponent({
     },
 
     settingsStyleTextImg() {
-      const fsEm = this.em * this.fontSize;
+      const fsEm = this.em * this.textFontSize;
+
       this.contextCanvasImg.font = `bold ${fsEm}px Verdana, sans-serif`;
       this.contextCanvasImg.textAlign = 'center';
       this.contextCanvasImg.textBaseline = 'middle';
-      this.contextCanvasImg.fillStyle = '#fff';
+      this.contextCanvasImg.fillStyle = this.textColor;
     },
 
     settingsStylePoligonPreview() {
@@ -627,6 +736,32 @@ export default defineComponent({
     // *** EVENTS CANVAS ***
 
     // *** TEXT EVENTS ***
+
+    openSettingsTextColor() {
+      this.isTextColor = !this.isTextColor;
+
+      this.isTextFontSize = false;
+    },
+
+    openSettingsTextFS() {
+      this.isTextFontSize = !this.isTextFontSize;
+
+      this.isTextColor = false;
+    },
+
+    addFontSizeText(fs: number) {
+      this.textFontSize = fs;
+
+      this.previewFillText(this.textX, this.textY);
+
+      this.isTextFontSize = false;
+    },
+
+    addTextColor(color: string) {
+      this.textColor = color;
+
+      this.isTextColor = false;
+    },
 
     addStartTextPosition() {
       this.textX = this.canvasImg.width / 2;
@@ -1026,8 +1161,12 @@ export default defineComponent({
     polygonPointsValue() {
       this.handlerResetCanas();
     },
+
     inputTextImg() {
       this.previewFillText(this.textX, this.textY);
+
+      this.isTextFontSize = false;
+      this.isTextColor = false;
     },
   },
 });
