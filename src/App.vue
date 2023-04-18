@@ -160,7 +160,7 @@
                         </button>
                         <div
                           v-show="isFontSizeSettings"
-                          class="absolute flex top-9 left-0 z-10 max-h-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-auto hover:overflow-scroll"
+                          class="absolute flex top-9 left-0 z-10 max-h-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-scroll"
                           role="menu"
                           aria-orientation="vertical"
                           aria-labelledby="menu-button"
@@ -207,7 +207,7 @@
                         </button>
                         <div
                           v-show="isColorSettings"
-                          class="absolute flex top-9 left-1 z-10 max-h-36 max-w-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-auto hover:overflow-scroll"
+                          class="absolute flex top-9 left-1 z-10 max-h-36 max-w-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-scroll"
                           role="menu"
                           aria-orientation="vertical"
                           aria-labelledby="menu-button"
@@ -285,7 +285,7 @@
                       </button>
                       <div
                         v-show="isSelectPolygons"
-                        class="absolute flex top-9 left-1 z-10 max-h-36 max-w-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-auto hover:overflow-scroll"
+                        class="absolute flex top-9 left-1 z-10 max-h-36 max-w-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-scroll"
                         role="menu"
                         aria-orientation="vertical"
                         aria-labelledby="menu-button"
@@ -331,7 +331,7 @@
                       </button>
                       <div
                         v-show="isFontSizeSettings"
-                        class="absolute flex top-9 left-0 z-10 max-h-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-auto hover:overflow-scroll"
+                        class="absolute flex top-9 left-0 z-10 max-h-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-scroll"
                         role="menu"
                         aria-orientation="vertical"
                         aria-labelledby="menu-button"
@@ -378,7 +378,7 @@
                       </button>
                       <div
                         v-show="isColorSettings"
-                        class="absolute flex top-9 left-1 z-10 max-h-36 max-w-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-auto hover:overflow-scroll"
+                        class="absolute flex top-9 left-1 z-10 max-h-36 max-w-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-scroll"
                         role="menu"
                         aria-orientation="vertical"
                         aria-labelledby="menu-button"
@@ -450,7 +450,7 @@
                     </button>
                     <div
                       v-show="isFontSizeSettings"
-                      class="absolute flex top-9 left-0 z-10 max-h-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-auto hover:overflow-scroll"
+                      class="absolute flex top-9 left-0 z-10 max-h-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-scroll"
                       role="menu"
                       aria-orientation="vertical"
                       aria-labelledby="menu-button"
@@ -497,7 +497,7 @@
                     </button>
                     <div
                       v-show="isColorSettings"
-                      class="absolute flex top-9 left-1 z-10 max-h-36 max-w-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-auto hover:overflow-scroll"
+                      class="absolute flex top-9 left-1 z-10 max-h-36 max-w-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-scroll"
                       role="menu"
                       aria-orientation="vertical"
                       aria-labelledby="menu-button"
