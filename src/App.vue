@@ -121,7 +121,7 @@
                 </div>
 
                 <!-- input text editor -->
-                <div class="mb-8 px-4 flex align-middle" v-if="isTextEvent">
+                <div class="mb-8 px-4 flex align-middle" v-show="isTextEvent">
                   <div class="mr-4">
                     <!-- input  -->
                     <input
@@ -134,12 +134,12 @@
                       v-model="inputTextImg"
                     />
 
-                    <div class="flex">
-                      <!-- Font size  -->
+                    <!-- Font size  and Color   -->
 
+                    <div class="flex">
                       <div class="relative mr-5">
                         <button
-                          @click="openSettingsTextFS"
+                          @click="openSettingsFS"
                           type="button"
                           class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                           id="menu-button"
@@ -159,7 +159,7 @@
                           </svg>
                         </button>
                         <div
-                          v-show="isTextFontSize"
+                          v-show="isFontSizeSettings"
                           class="absolute flex top-9 left-0 z-10 max-h-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-auto hover:overflow-scroll"
                           role="menu"
                           aria-orientation="vertical"
@@ -181,11 +181,9 @@
                         </div>
                       </div>
 
-                      <!-- Color  -->
-
                       <div class="relative">
                         <button
-                          @click="openSettingsTextColor"
+                          @click="openSettingsColor"
                           type="button"
                           class="flex w-full self-center gap-x-1.5 rounded-md bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                           id="menu-button"
@@ -208,7 +206,7 @@
                           </svg>
                         </button>
                         <div
-                          v-show="isTextColor"
+                          v-show="isColorSettings"
                           class="absolute flex top-9 left-1 z-10 max-h-36 max-w-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-auto hover:overflow-scroll"
                           role="menu"
                           aria-orientation="vertical"
@@ -243,7 +241,7 @@
                       @click="handlerAddTextImg"
                       class="mr-2 rounded-md bg-indigo-600 px-3 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 ring-1 ring-black ring-opacity-5 focus:outline-none"
                     >
-                      Save
+                      Add
                     </button>
                     <button
                       @click="handlerResetCanas"
@@ -258,17 +256,185 @@
                 <!-- input Poligon editor -->
 
                 <div
-                  class="px-4 mb-6 text-left flex items-center justify-end"
+                  class="flex flex-col px-4 mb-7 text-left items-center justify-center"
                   v-show="isPolyhedronEvent"
                 >
-                  <div class="relative mr-4">
+                  <div class="flex items-center justify-center mb-3 w-full">
+                    <!-- polygon Points  -->
+
+                    <div class="relative mr-4">
+                      <button
+                        @click="isSelectPolygons = !isSelectPolygons"
+                        type="button"
+                        class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                        id="menu-button"
+                      >
+                        {{ polygonPointsValue }}
+                        <svg
+                          class="-mr-1 h-5 w-5 text-gray-400"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </button>
+                      <div
+                        v-show="isSelectPolygons"
+                        class="absolute flex top-9 left-1 z-10 max-h-36 max-w-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-auto hover:overflow-scroll"
+                        role="menu"
+                        aria-orientation="vertical"
+                        aria-labelledby="menu-button"
+                      >
+                        <div class="py-1 text-center" role="none">
+                          <a
+                            v-for="value in polygonPointsSelectList"
+                            :key="value"
+                            @click="addPolygonPointsValue(value)"
+                            href="#"
+                            class="text-gray-700 block px-4 py-2 text-sm active: bg-gray-100 active:text-gray-900"
+                            role="menuitem"
+                            tabindex="-1"
+                            id="menu-item-0"
+                            >{{ value }}</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Font size and Color   -->
+
+                    <div class="relative mr-4">
+                      <button
+                        @click="openSettingsFS"
+                        type="button"
+                        class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                        id="menu-button"
+                      >
+                        {{ polyhedronLineWidth }}px
+                        <svg
+                          class="-mr-1 h-5 w-5 text-gray-400"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </button>
+                      <div
+                        v-show="isFontSizeSettings"
+                        class="absolute flex top-9 left-0 z-10 max-h-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-auto hover:overflow-scroll"
+                        role="menu"
+                        aria-orientation="vertical"
+                        aria-labelledby="menu-button"
+                      >
+                        <div class="py-1 text-center" role="none">
+                          <a
+                            v-for="lw in lineWidthList"
+                            :key="lw"
+                            @click="addLineWidthPolyhedron(lw)"
+                            href="#"
+                            class="text-gray-700 block px-4 py-2 text-sm active: bg-gray-100 active:text-gray-900"
+                            role="menuitem"
+                            tabindex="-1"
+                            id="menu-item-0"
+                            >{{ lw }}px</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="relative">
+                      <button
+                        @click="openSettingsColor"
+                        type="button"
+                        class="flex w-full self-center gap-x-1.5 rounded-md bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                        id="menu-button"
+                      >
+                        <span
+                          class="w-4 h-4 flex self-center"
+                          :style="`background-color:${polyhedronColor}`"
+                        ></span>
+                        <svg
+                          class="-mr-1 h-5 w-5 text-gray-400"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </button>
+                      <div
+                        v-show="isColorSettings"
+                        class="absolute flex top-9 left-1 z-10 max-h-36 max-w-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-auto hover:overflow-scroll"
+                        role="menu"
+                        aria-orientation="vertical"
+                        aria-labelledby="menu-button"
+                      >
+                        <div class="py-1 text-center" role="none">
+                          <a
+                            v-for="color in colorList"
+                            :key="color"
+                            @click="addPolyhedronColor(color)"
+                            href="#"
+                            class="text-gray-700 block px-4 py-2 text-sm active: bg-gray-100 active:text-gray-900"
+                            role="menuitem"
+                            tabindex="-1"
+                            id="menu-item-0"
+                            ><span
+                              class="w-4 h-4 flex self-center"
+                              :style="`background-color:${color}`"
+                            ></span
+                          ></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- control buttons -->
+                  <div class="flex items-center">
                     <button
-                      @click="isSelectPolygons = !isSelectPolygons"
+                      type="button"
+                      @click="handlerAddPolyhedronImg"
+                      class="mr-2 rounded-md bg-indigo-600 px-3 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    >
+                      Add
+                    </button>
+                    <button
+                      @click="handlerResetCanas"
+                      type="button"
+                      class="rounded-md bg-white-600 px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm hover:bg-red-700 hover:text-white active:bg-red-600 active:text-white outline-none ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Rectangle -->
+
+                <div v-show="isRectangleEvent" class="flex items-center mb-7">
+                  <!-- Font size and Color   -->
+
+                  <div class="relative mr-3">
+                    <button
+                      @click="openSettingsFS"
                       type="button"
                       class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                       id="menu-button"
                     >
-                      {{ polygonPointsValue }}
+                      {{ rectLineWidth }}px
                       <svg
                         class="-mr-1 h-5 w-5 text-gray-400"
                         viewBox="0 0 20 20"
@@ -283,7 +449,54 @@
                       </svg>
                     </button>
                     <div
-                      v-show="isSelectPolygons"
+                      v-show="isFontSizeSettings"
+                      class="absolute flex top-9 left-0 z-10 max-h-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-auto hover:overflow-scroll"
+                      role="menu"
+                      aria-orientation="vertical"
+                      aria-labelledby="menu-button"
+                    >
+                      <div class="py-1 text-center" role="none">
+                        <a
+                          v-for="lw in lineWidthList"
+                          :key="lw"
+                          @click="addLineWidthRect(lw)"
+                          href="#"
+                          class="text-gray-700 block px-4 py-2 text-sm active: bg-gray-100 active:text-gray-900"
+                          role="menuitem"
+                          tabindex="-1"
+                          id="menu-item-0"
+                          >{{ lw }}px</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="relative mr-5">
+                    <button
+                      @click="openSettingsColor"
+                      type="button"
+                      class="flex w-full self-center gap-x-1.5 rounded-md bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                      id="menu-button"
+                    >
+                      <span
+                        class="w-4 h-4 flex self-center"
+                        :style="`background-color:${rectColor}`"
+                      ></span>
+                      <svg
+                        class="-mr-1 h-5 w-5 text-gray-400"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                    <div
+                      v-show="isColorSettings"
                       class="absolute flex top-9 left-1 z-10 max-h-36 max-w-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-auto hover:overflow-scroll"
                       role="menu"
                       aria-orientation="vertical"
@@ -291,44 +504,29 @@
                     >
                       <div class="py-1 text-center" role="none">
                         <a
-                          v-for="value in polygonPointsSelectList"
-                          :key="value"
-                          @click="addPolygonPointsValue(value)"
+                          v-for="color in colorList"
+                          :key="color"
+                          @click="addRectColor(color)"
                           href="#"
                           class="text-gray-700 block px-4 py-2 text-sm active: bg-gray-100 active:text-gray-900"
                           role="menuitem"
                           tabindex="-1"
                           id="menu-item-0"
-                          >{{ value }}</a
-                        >
+                          ><span
+                            class="w-4 h-4 flex self-center"
+                            :style="`background-color:${color}`"
+                          ></span
+                        ></a>
                       </div>
                     </div>
                   </div>
-                  <div class="flex items-center">
-                    <button
-                      type="button"
-                      @click="handlerAddPolyhedronImg"
-                      class="mr-2 rounded-md bg-indigo-600 px-3 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 ring-1 ring-black ring-opacity-5 focus:outline-none"
-                    >
-                      Save
-                    </button>
-                    <button
-                      @click="handlerResetCanas"
-                      type="button"
-                      class="rounded-md bg-white-600 px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm hover:bg-red-700 hover:text-white active:bg-red-600 active:text-white outline-none ring-1 ring-black ring-opacity-5 focus:outline-none"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </div>
 
-                <div v-show="isRectangleEvent" class="flex items-center mb-7">
                   <button
                     @click="handlerAddRectImg"
                     type="button"
                     class="mr-2 rounded-md bg-indigo-600 px-3 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
                   >
-                    Save
+                    Add
                   </button>
                   <button
                     @click="handlerResetCanas"
@@ -487,17 +685,17 @@ export default defineComponent({
       imageCanvas: {} as HTMLImageElement,
 
       fontSizeList: [6, 8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 40, 48, 56],
+      lineWidthList: [2, 3, 4, 5, 6, 7, 8, 9, 10],
       colorList: ['white', 'black', 'blue', 'red', 'orange', 'green'],
+      isFontSizeSettings: false,
+      isColorSettings: false,
       em: 1,
       maxWidth: 0,
       maxHeight: 0,
       lineWidth: 4,
-      fontSize: 16,
 
       isTextEvent: false,
       isTextAdd: false,
-      isTextFontSize: false,
-      isTextColor: false,
       textFontSize: 16,
       textColor: 'black',
       inputTextImg: '',
@@ -507,6 +705,8 @@ export default defineComponent({
       isPolyhedronEvent: false,
       isSelectPolygons: false,
       isPreviewPolyhedronFlag: true,
+      polyhedronLineWidth: 4,
+      polyhedronColor: 'black',
       polygonPointsValue: 3,
       polygonPointsSelectList: [3, 4, 5, 6, 7, 8],
       addPointsPreview: 0,
@@ -514,6 +714,8 @@ export default defineComponent({
 
       isRectangleEvent: false,
       isRectAdd: false,
+      rectLineWidth: 4,
+      rectColor: 'black',
       startWidhtRect: 100,
       startHeigthRect: 100,
       rectWidth: 0,
@@ -711,42 +913,43 @@ export default defineComponent({
     },
 
     settingsStylePoligonPreview() {
-      this.contextCanvasSample.lineWidth = this.em * this.lineWidth - 1;
+      this.contextCanvasSample.lineWidth =
+        this.em * this.polyhedronLineWidth - 1;
       this.contextCanvasSample.strokeStyle = 'rgba(255, 255, 255, 0.75)';
       this.contextCanvasSample.setLineDash([this.em * 5, this.em * 10]);
       this.contextCanvasSample.lineCap = 'round';
     },
 
     settingsStylePoligonImg() {
-      this.contextCanvasImg.lineWidth = this.em * this.lineWidth;
-      this.contextCanvasImg.strokeStyle = '#fff';
+      this.contextCanvasImg.lineWidth = this.em * this.polyhedronLineWidth;
+      this.contextCanvasImg.strokeStyle = this.polyhedronColor;
     },
 
     settingsStyleRectPreview() {
-      this.contextCanvasSample.lineWidth = this.em * this.lineWidth - 1;
+      this.contextCanvasSample.lineWidth = this.em * this.rectLineWidth - 1;
       this.contextCanvasSample.strokeStyle = 'rgba(255, 255, 255, 0.75)';
       this.contextCanvasSample.setLineDash([this.em * 5, this.em * 10]);
     },
 
     settingsStyleRectImg() {
-      this.contextCanvasImg.lineWidth = this.em * this.lineWidth;
-      this.contextCanvasImg.strokeStyle = '#fff';
+      this.contextCanvasImg.lineWidth = this.em * this.rectLineWidth;
+      this.contextCanvasImg.strokeStyle = this.rectColor;
     },
 
     // *** EVENTS CANVAS ***
 
     // *** TEXT EVENTS ***
 
-    openSettingsTextColor() {
-      this.isTextColor = !this.isTextColor;
+    openSettingsColor() {
+      this.isColorSettings = !this.isColorSettings;
 
-      this.isTextFontSize = false;
+      this.isFontSizeSettings = false;
     },
 
-    openSettingsTextFS() {
-      this.isTextFontSize = !this.isTextFontSize;
+    openSettingsFS() {
+      this.isFontSizeSettings = !this.isFontSizeSettings;
 
-      this.isTextColor = false;
+      this.isColorSettings = false;
     },
 
     addFontSizeText(fs: number) {
@@ -754,13 +957,13 @@ export default defineComponent({
 
       this.previewFillText(this.textX, this.textY);
 
-      this.isTextFontSize = false;
+      this.isFontSizeSettings = false;
     },
 
     addTextColor(color: string) {
       this.textColor = color;
 
-      this.isTextColor = false;
+      this.isColorSettings = false;
     },
 
     addStartTextPosition() {
@@ -831,6 +1034,18 @@ export default defineComponent({
       ) {
         this.previewPolyhedronEvent();
       }
+    },
+
+    addPolyhedronColor(color: string) {
+      this.polyhedronColor = color;
+
+      this.isColorSettings = false;
+    },
+
+    addLineWidthPolyhedron(lw: number) {
+      this.polyhedronLineWidth = lw;
+
+      this.isFontSizeSettings = false;
     },
 
     addPolygonPointsValue(value: number) {
@@ -912,6 +1127,18 @@ export default defineComponent({
     },
 
     // ***  RECTENLE EVENT  ***
+
+    addRectColor(color: string) {
+      this.rectColor = color;
+
+      this.isColorSettings = false;
+    },
+
+    addLineWidthRect(lw: number) {
+      this.rectLineWidth = lw;
+
+      this.isFontSizeSettings = false;
+    },
 
     findPolygonsRect() {
       if (
@@ -1110,6 +1337,8 @@ export default defineComponent({
       this.addPointsPreview = 0;
       this.isRectAdd = false;
       this.isPreviewPolyhedronFlag = true;
+      this.isFontSizeSettings = false;
+      this.isColorSettings = false;
     },
 
     handlerResetImg() {
@@ -1121,10 +1350,10 @@ export default defineComponent({
       // this.imageCanvas = null;
       // this.canvasImg.width = this.canvasImg.width;
       // this.canvasSample.width = this.canvasSample.width;
-      this.isLoading = false;
-      this.isTextEvent = false;
-      this.isPolyhedronEvent = false;
-      this.isRectangleEvent = false;
+      // this.isLoading = false;
+      // this.isTextEvent = false;
+      // this.isPolyhedronEvent = false;
+      // this.isRectangleEvent = false;
       location.reload();
     },
 
@@ -1165,8 +1394,8 @@ export default defineComponent({
     inputTextImg() {
       this.previewFillText(this.textX, this.textY);
 
-      this.isTextFontSize = false;
-      this.isTextColor = false;
+      this.isFontSizeSettings = false;
+      this.isColorSettings = false;
     },
   },
 });
