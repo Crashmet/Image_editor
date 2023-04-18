@@ -1,7 +1,7 @@
 # Image redactor online
 ```
 ```
-# Ссылка на проект - [Landing](https://crashmet.github.io/img-redactor/dist)
+# Ссылка на проект - [Landing](https://crashmet.github.io/Image_editor/dist)
 
 ```
 ```
